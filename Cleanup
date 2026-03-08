@@ -1,0 +1,20 @@
+# 1. Show explicitly installed packages (not dependencies)
+pacman -Qe
+
+# 2. Show orphaned packages (installed as deps, but nothing needs them anymore)
+pacman -Qtdq
+
+# 3. Show package cache size
+du -sh /var/cache/pacman/pkg/
+
+# 4. Show total installed packages
+pacman -Q | wc -l
+
+# 5. Show largest installed packages
+expac -H M '%m\t%n' | sort -h | tail -20
+
+# 6. Remove orphaned packages
+sudo pacman -Rns $(pacman -Qtdq)
+
+# 7. Clean package cache
+sudo pacman -Sc
